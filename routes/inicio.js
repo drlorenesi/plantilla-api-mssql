@@ -3,11 +3,12 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../startup/db");
 
-// Home Route
-// ----------
+// Inicio
+// ------
 router.get("/", async (req, res) => {
-  const time = await pool.query("SELECT NOW()");
-  res.status(200).send(time.rows);
+  const db = await pool.connect();
+  const { recordset } = await db.query("SELECT GETDATE() AS DATE");
+  res.send(recordset);
 });
 
 module.exports = router;

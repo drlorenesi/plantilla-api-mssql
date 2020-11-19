@@ -1,9 +1,16 @@
 require("dotenv").config();
 const pool = require("../../startup/db");
 
-describe("SQL Server connection test", () => {
-  it("should connect to the database", async () => {
-    const db = await pool.connect();
+let db;
+
+describe("Conexion a Base de Datos", () => {
+  beforeAll(async () => {
+    db = await pool.connect();
+  });
+  afterAll(async () => {
+    pool.close();
+  });
+  it("- deberia conectarse a base de datos", async () => {
     expect(db._connected).toEqual(true);
   });
 });
