@@ -1,19 +1,20 @@
 // Dependencies
-const express = require("express");
-const morgan = require("morgan");
+const express = require('express');
+const morgan = require('morgan');
 // Routes
-const inicio = require("../routes/inicio");
+const usuarios = require('../routes/usuarios');
 // Error middleware
-const error = require("../middleware/error");
+const error = require('../middleware/error');
 
 module.exports = (app) => {
   // Middleware
   app.use(express.json());
-  if (app.get("env") === "development") {
-    app.use(morgan("dev"));
+  app.use(express.static('public'));
+  if (app.get('env') === 'development') {
+    app.use(morgan('dev'));
   }
   // Routes
-  app.use("/", inicio);
-  // Error middleware
+  app.use('/api/usuarios', usuarios);
+  // Error middleware (after routes)
   app.use(error);
 };
