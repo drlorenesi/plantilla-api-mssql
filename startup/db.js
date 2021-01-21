@@ -14,28 +14,31 @@ const pool = new sql.ConnectionPool({
   },
 });
 
-// Log connection at startup
-async function testConnection() {
-  try {
+// Test Database connection
+if (process.env.NODE_ENV === 'development') {
+  (async function () {
+    try {
+      const db = await pool.connect();
+      console.log(
+        chalk.blue('- Conectado a'),
+        chalk.magenta(db.config.database),
+        chalk.blue('en'),
+        chalk.magenta(db.config.server)
+      );
+    } catch (err) {
+      console.log(chalk.red('Error de Base de Datos -'), err.message);
+      logger.error(
+        'Error de conexión a Base de Datos - %s at %s',
+        err,
+        new Date()
+      );
+    }
+  })();
+}
+
+module.exports = {
+  query: async function (text, params) {
     const db = await pool.connect();
-    console.log(
-      chalk.blue('- Conectado a'),
-      chalk.magenta(db.config.database),
-      chalk.blue('en'),
-      chalk.magenta(db.config.server)
-    );
-  } catch (err) {
-    console.log(chalk.red('Error de Base de Datos -'), err.message);
-    logger.error(
-      'Error de conexión a Base de Datos - %s at %s',
-      err,
-      new Date()
-    );
-  }
-}
-
-if (process.env.NODE_ENV !== 'testing') {
-  testConnection();
-}
-
-module.exports = pool;
+    return db.query(text, params);
+  },
+};

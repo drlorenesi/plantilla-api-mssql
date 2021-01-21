@@ -2,7 +2,9 @@
 const express = require('express');
 const morgan = require('morgan');
 // Routes
-const usuarios = require('../routes/usuarios');
+const fecha = require('../routes/fecha');
+const test = require('../routes/test');
+const ventasxcanal = require('../routes/reportes/ventasxcanal');
 // Error middleware
 const error = require('../middleware/error');
 
@@ -14,7 +16,9 @@ module.exports = (app) => {
     app.use(morgan('dev'));
   }
   // Routes
-  app.use('/api/usuarios', usuarios);
+  app.use('/api/fecha', fecha);
+  app.use('/api/test', test);
+  app.use('/api/reportes/ventasxcanal', ventasxcanal);
   // Error middleware (after routes)
   app.use(error);
 };

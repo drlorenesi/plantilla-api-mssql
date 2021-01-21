@@ -7,5 +7,5 @@ module.exports = (error, req, res, next) => {
   logger.error('Erro de API - %s at %s', error, new Date());
   res
     .status(500)
-    .json({ message: 'Lo sentimos, algo inesperado sucedió de nuestro lado.' });
+    .json({ message: 'Lo sentimos, algo inesperado sucedió en el servidor.' });
 };

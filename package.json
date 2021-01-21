@@ -22,18 +22,19 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "compression": "^1.7.4",
-    "debug": "^4.2.0",
+    "debug": "^4.3.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
-    "helmet": "^4.2.0",
+    "helmet": "^4.4.1",
+    "moment": "^2.29.1",
     "morgan": "^1.10.0",
-    "mssql": "^6.2.3",
+    "mssql": "^6.3.1",
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2",
+    "cross-env": "^7.0.3",
     "jest": "^26.6.3",
-    "supertest": "^6.0.1"
+    "supertest": "^6.1.1"
   }
 }
