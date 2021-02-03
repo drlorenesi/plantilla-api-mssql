@@ -11,8 +11,8 @@ router.get('/', async (req, res) => {
   f_ini = moment().format();
   console.log(f_ini);
 
-  // const { recordset } = await db.query(
-  //   `SELECT ${inicio} as date, GETDATE() as now`
+  // const result = await db.query(
+  //   `SELECT ${f_ini } as date, GETDATE() as now`
   // );
   // res.send(recordset);
   res.send(f_ini);

@@ -1,9 +1,9 @@
 // require('dotenv').config();
-const sql = require('mssql');
+const { ConnectionPool } = require('mssql');
+const debugDB = require('debug')('app:db');
 const chalk = require('chalk');
-const logger = require('./logger');
 
-const pool = new sql.ConnectionPool({
+const pool = new ConnectionPool({
   user: process.env.MSSQLUSER,
   password: process.env.MSSQLPASSWORD,
   server: process.env.MSSQLHOST,
@@ -14,7 +14,7 @@ const pool = new sql.ConnectionPool({
   },
 });
 
-// Test Database connection
+// Probar conexión a base de datos
 if (process.env.NODE_ENV === 'development') {
   (async function () {
     try {
@@ -27,18 +27,18 @@ if (process.env.NODE_ENV === 'development') {
       );
     } catch (err) {
       console.log(chalk.red('Error de Base de Datos -'), err.message);
-      logger.error(
-        'Error de conexión a Base de Datos - %s at %s',
-        err,
-        new Date()
-      );
+      return;
     }
   })();
 }
 
 module.exports = {
-  query: async function (text, params) {
+  async query(text, params) {
+    const start = Date.now();
     const db = await pool.connect();
-    return db.query(text, params);
+    const res = await db.query(text, params);
+    const duration = Date.now() - start;
+    debugDB(`Filas afectadas: ${res.rowsAffected}, duración: ${duration}`);
+    return res;
   },
 };
