@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
     "dev": "cross-env NODE_ENV=development DEBUG=app:* nodemon server.js",
-    "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --coverage"
+    "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --coverage --detectOpenHandles"
   },
   "repository": {
     "type": "git",

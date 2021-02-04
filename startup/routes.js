@@ -4,8 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 // Routes
 const fecha = require('../routes/fecha');
-const test = require('../routes/test');
-const ventasporcanal = require('../routes/reportes/ventasPorCanal');
+const ventasporcanal = require('../routes/reportes/ventas/ventasPorCanal');
 // Error middleware
 const error = require('../middleware/error');
 
@@ -19,8 +18,7 @@ module.exports = (app) => {
   }
   // Routes
   app.use('/api/fecha', fecha);
-  app.use('/api/test', test);
-  app.use('/api/reportes/ventasporcanal', ventasporcanal);
+  app.use('/api/reportes/ventas/ventasporcanal', ventasporcanal);
   // Error middleware (after routes)
   app.use(error);
 };

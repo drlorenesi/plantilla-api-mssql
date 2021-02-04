@@ -1,16 +1,9 @@
-require('dotenv').config();
-const pool = require('../../startup/db');
+require('dotenv').config(); // Required to run test
+const db = require('../../startup/db');
 
-let db;
-
-describe('Conexion a Base de Datos', () => {
-  beforeAll(async () => {
-    db = await pool.connect();
-  });
-  afterAll(async () => {
-    pool.close();
-  });
-  it('- deberia conectarse a base de datos', async () => {
-    expect(db._connected).toEqual(true);
+describe('Test de conexión a DB', () => {
+  it('- debería de conectarse a base de datos y correr un query sencillo', async () => {
+    const result = await db.query('SELECT 1');
+    expect(result.rowsAffected[0]).toEqual(1);
   });
 });
