@@ -1,19 +1,19 @@
-const moment = require('moment');
+const { format, isValid, parseISO, startOfMonth } = require('date-fns');
 
 function inicioDeMes(fecha) {
   if (fecha === undefined || !Boolean(fecha)) {
-    fecha = moment().startOf('month').format('YYYY-MM-DD');
-  } else if (fecha && moment(fecha).isValid()) {
-    fecha = moment(fecha).format('YYYY-MM-DD');
+    fecha = format(startOfMonth(new Date()), 'yyyy-MM-dd');
+  } else if (fecha && isValid(new Date(fecha))) {
+    fecha = format(parseISO(fecha), 'yyyy-MM-dd');
   }
   return fecha;
 }
 
 function diaDeHoy(fecha) {
   if (fecha === undefined || !Boolean(fecha)) {
-    fecha = moment().format('YYYY-MM-DD');
-  } else if (fecha && moment(fecha).isValid()) {
-    fecha = moment(fecha).format('YYYY-MM-DD');
+    fecha = format(new Date(), 'yyyy-MM-dd');
+  } else if (fecha && isValid(new Date(fecha))) {
+    fecha = format(parseISO(fecha), 'yyyy-MM-dd');
   }
   return fecha;
 }

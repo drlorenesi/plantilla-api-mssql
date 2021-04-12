@@ -7,6 +7,8 @@ const db = require('../../../startup/db');
 // http://localhost:9000/api/reportes/ventas/ventasporcanal?fecha_ini=2021-02-01&fecha_fin=2021-02-03
 router.get('/', async (req, res) => {
   let { fecha_ini, fecha_fin } = req.query;
+  console.log(`Fecha ini: ${inicioDeMes(fecha_ini)}`);
+  console.log(`Fecha fin: ${diaDeHoy(fecha_fin)}`);
 
   const { recordset } = await db.query(`
   DECLARE @f_ini DATETIME = '${inicioDeMes(fecha_ini)}'
