@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { inicioDeMes, diaDeHoy } = require('../../../utils/generaFechas');
-const db = require('../../../startup/db');
+const { db } = require('../../../config/db');
 
 // Ventas Resumidas por Canal
 // http://localhost:9000/api/reportes/ventas/ventasporcanal?fecha_ini=2021-02-01&fecha_fin=2021-02-03

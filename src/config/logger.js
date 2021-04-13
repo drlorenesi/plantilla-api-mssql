@@ -19,25 +19,20 @@ const logger = createLogger({
     format.prettyPrint()
   ),
   transports: [
-    new transports.File({ filename: 'errors.log' }),
     // new Sentry(options),
+    new transports.File({ filename: 'errors.log' }),
+    new transports.Console({
+      format: format.combine(format.colorize(), format.simple()),
+    }),
   ],
 });
 
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(
-    new transports.Console({
-      format: format.combine(format.colorize(), format.simple()),
-    })
-  );
-}
-
-process.on('uncaughtException', (ex) => {
-  logger.error('Uncaught Exception - %s at %s', ex, new Date());
+process.on('uncaughtException', (error) => {
+  logger.error('Uncaught Exception.\n%s', error);
 });
 
-process.on('unhandledRejection', (ex) => {
-  logger.error('Unhandled Rejection - %s at %s', ex, new Date());
+process.on('unhandledRejection', (error) => {
+  logger.error('Unhandled Rejection.\n%s', error);
 });
 
 module.exports = logger;

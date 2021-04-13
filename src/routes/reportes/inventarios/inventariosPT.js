@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../../startup/db');
+const { db } = require('../../../config/db');
 
 // Inventarios de producto terminado
 // http://localhost:9000/api/reportes/inventarios/inventariospt
