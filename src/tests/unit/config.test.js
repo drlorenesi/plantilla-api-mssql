@@ -1,18 +1,17 @@
-const checkJWT = require('../../startup/config');
-const chalk = require('chalk');
+const checkJWT = require('../../config/startup');
 
 const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
 
-describe('Verificar si existe una "jwtPrivateKey" en archivo ".env"', () => {
-  it('- debería desplegar "ERROR TERMINAL: jwtPrivateKey no esta definida." en la consola', () => {
+describe('Verificar si existe una "JWT_SIGNATURE" en archivo ".env"', () => {
+  it('- debería desplegar "ERROR TERMINAL: JWT_SIGNATURE no está definida." en la consola', () => {
     global.console = { error: jest.fn() };
     checkJWT();
     expect(console.error).toBeCalled();
     expect(console.error).toHaveBeenCalledWith(
-      chalk.red('ERROR TERMINAL: jwtPrivateKey no esta definida.')
+      'ERROR TERMINAL: JWT_SIGNATURE no está definida.'
     );
   });
-  it('- debería salir del proceso si no existe una "jwtPrivateKey" en ".env"', () => {
+  it('- debería salir del proceso si no existe una "JWT_SIGNATURE" en ".env"', () => {
     checkJWT();
     expect(mockExit).toHaveBeenCalledWith(1);
   });

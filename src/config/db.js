@@ -1,4 +1,3 @@
-// require('dotenv').config();
 const { ConnectionPool } = require('mssql');
 
 const pool = new ConnectionPool({
@@ -17,13 +16,22 @@ async function connectDB() {
   console.log(`- Conectado a ${db.config.database} en ${db.config.server}`);
 }
 
+// Write async queries as:
+// const result = await db('select 1');
 async function db(query) {
-  const start = Date.now();
-  const connection = await pool.connect();
-  const result = await connection.query(query);
-  const duration = Date.now() - start;
-  console.log(`Filas afectadas: ${result.rowsAffected}, duración: ${duration}`);
-  return result;
+  try {
+    const start = Date.now();
+    await pool.connect();
+    const result = await pool.query(query);
+    const duration = Date.now() - start;
+    console.log(
+      `Filas afectadas: ${result.rowsAffected}, duración: ${duration}`
+    );
+
+    return result.recordset;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 exports.connectDB = connectDB;

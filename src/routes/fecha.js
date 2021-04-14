@@ -6,7 +6,7 @@ const { db } = require('../config/db');
 // http://localhost:9000/api/fecha?fecha_ini=2021-02-01&fecha_fin=2021-02-28
 router.get('/', async (req, res) => {
   let { fecha_ini, fecha_fin } = req.query;
-  const { recordset } = await db(`
+  const result = await db(`
   DECLARE @fecha_ini DATETIME = '${inicioDeMes(fecha_ini)}'
   DECLARE @fecha_fin DATETIME = '${hoy(fecha_fin)}'
 
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     DATEDIFF(day, @fecha_ini, @fecha_fin) diff_en_dias,
     DATEDIFF(week, @fecha_ini, @fecha_fin) diff_en_semanas;
   `);
-  res.send({ fecha_ini, fecha_fin, recordset });
+  res.send({ fecha_ini, fecha_fin, result });
 });
 
 module.exports = router;
